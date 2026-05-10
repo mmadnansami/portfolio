@@ -28,8 +28,8 @@ export function Footer() {
         <div>
           <h4 className="font-display font-semibold mb-3">Contact</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> adnanrihan56@gmail.com</li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +8801317680620</li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><span>adnanrihan56@gmail.com</span></li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /><span>+8801317680620</span></li>
           </ul>
         </div>
         <div>
