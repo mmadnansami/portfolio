@@ -2,10 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
 import adnan from "@/assets/adnan.jpg";
-import portfolioCinema from "@/assets/portfolio-cinema.jpg";
-import portfolioAutomation from "@/assets/portfolio-automation.jpg";
-import portfolioGrowth from "@/assets/portfolio-growth.jpg";
 import { Film, Bot, TrendingUp, ArrowRight, Sparkles, Star, Quote, Zap, Shield, Award } from "lucide-react";
+import { ToolsStrip } from "@/components/ToolsStrip";
+import { projects } from "@/data/projects";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,10 +16,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] } }),
-};
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function HomePage() {
   return (
@@ -34,23 +30,40 @@ function HomePage() {
           <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-accent/30 blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
         </div>
         <div className="container mx-auto max-w-7xl px-4 pt-24 pb-32 md:pt-36 md:pb-44">
-          <motion.div initial="hidden" animate="show" variants={fadeUp} className="flex items-center gap-2 mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+            className="flex items-center gap-2 mb-6"
+          >
             <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs">
               <Sparkles className="h-3 w-3 text-primary animate-pulse" /> High-Value Solution Provider
             </span>
           </motion.div>
           <motion.h1
-            initial="hidden" animate="show" custom={1} variants={fadeUp}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-4xl tracking-tight"
           >
             Make your brand{" "}
             <span className="text-gradient">cinematic, automated</span> and built to scale.
           </motion.h1>
-          <motion.p initial="hidden" animate="show" custom={2} variants={fadeUp} className="mt-6 max-w-2xl text-lg text-muted-foreground">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease }}
+            className="mt-6 max-w-2xl text-lg text-muted-foreground"
+          >
             I combine high-end creative direction, AI-driven systems and proven growth strategy to turn modern
             businesses into category leaders.
           </motion.p>
-          <motion.div initial="hidden" animate="show" custom={3} variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease }}
+            className="mt-10 flex flex-wrap gap-4"
+          >
             <Link
               to="/contact"
               className="group relative inline-flex items-center gap-2 rounded-full bg-hero-gradient px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-elegant hover:shadow-glow transition-all hover:scale-105"
@@ -69,7 +82,7 @@ function HomePage() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.5, duration: 0.9, ease }}
             whileHover={{ y: -6 }}
             className="mt-20 grid md:grid-cols-[auto_1fr] gap-6 items-center max-w-3xl glass rounded-3xl p-6 shadow-elegant"
           >
@@ -113,7 +126,7 @@ function HomePage() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: i * 0.1, duration: 0.7, ease }}
               whileHover={{ y: -8 }}
               className="group relative rounded-3xl p-8 glass hover:shadow-glow transition-shadow duration-500"
             >
@@ -133,6 +146,21 @@ function HomePage() {
         </div>
       </Section>
 
+      {/* Tools */}
+      <Section>
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <p className="text-sm uppercase tracking-widest text-primary mb-3">What I use</p>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Tools in my daily stack</h2>
+          <p className="mt-3 text-muted-foreground">Battle-tested apps I trust to ship cinematic, automated, growth-ready work.</p>
+        </div>
+        <ToolsStrip />
+        <div className="mt-8 text-center">
+          <Link to="/tools" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all">
+            See the full stack <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </Section>
+
       {/* Showcase */}
       <Section>
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -140,21 +168,29 @@ function HomePage() {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Crafted with cinematic precision</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
-          {showcase.map((s, i) => (
+          {projects.map((s, i) => (
             <motion.div
-              key={s.title}
+              key={s.slug}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.1, duration: 0.7 }}
-              className="group relative overflow-hidden rounded-3xl glass aspect-[4/5]"
             >
-              <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.2s]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <p className="text-xs uppercase tracking-widest text-primary mb-1">{s.tag}</p>
-                <h3 className="text-xl font-bold">{s.title}</h3>
-              </div>
+              <Link
+                to="/portfolio/$slug"
+                params={{ slug: s.slug }}
+                className="group relative block overflow-hidden rounded-3xl glass aspect-[4/5] hover:shadow-glow transition-shadow"
+              >
+                <img src={s.cover} alt={s.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.2s]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <p className="text-xs uppercase tracking-widest text-primary mb-1">{s.tag}</p>
+                  <h3 className="text-xl font-bold">{s.title}</h3>
+                  <p className="mt-2 inline-flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                    View case study <ArrowRight className="h-3 w-3" />
+                  </p>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -254,12 +290,6 @@ const pillars = [
   { icon: Film, title: "Cinematic Creative Direction", desc: "Story-driven visuals, ad films and brand worlds that move people and markets." },
   { icon: Bot, title: "AI-Driven Automation", desc: "Custom workflows, agents and systems that run your business while you sleep." },
   { icon: TrendingUp, title: "Scalable Growth Strategy", desc: "Funnels, positioning and growth loops engineered for compounding revenue." },
-];
-
-const showcase = [
-  { img: portfolioCinema, title: "Cinematic Brand Film", tag: "Creative Direction" },
-  { img: portfolioAutomation, title: "AI Sales Engine", tag: "Automation" },
-  { img: portfolioGrowth, title: "10x Growth Funnel", tag: "Strategy" },
 ];
 
 const stats = [
