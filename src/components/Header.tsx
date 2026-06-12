@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import adnan from "@/assets/adnan.jpg";
 
 const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/portfolio", label: "Portfolio" },
+  { to: "/tools", label: "Tools" },
   { to: "/about", label: "About" },
   { to: "/blog", label: "Blog" },
   { to: "/contact", label: "Contact" },
@@ -17,9 +19,7 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full glass">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-hero-gradient shadow-glow">
-            <Sparkles className="h-4 w-4 text-primary-foreground" />
-          </span>
+          <img src={adnan} alt="Adnan Sami" className="h-9 w-9 rounded-full object-cover ring-2 ring-primary/50" />
           <span className="text-gradient">Adnan Sami</span>
         </Link>
         <nav className="hidden md:flex items-center gap-1">

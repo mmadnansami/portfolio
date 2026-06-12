@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, Sparkles } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import adnan from "@/assets/adnan.jpg";
 
 export function Footer() {
   return (
@@ -7,9 +8,7 @@ export function Footer() {
       <div className="container mx-auto max-w-7xl px-4 py-12 grid gap-8 md:grid-cols-4">
         <div>
           <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-hero-gradient">
-              <Sparkles className="h-4 w-4 text-primary-foreground" />
-            </span>
+            <img src={adnan} alt="Adnan Sami" className="h-9 w-9 rounded-full object-cover ring-2 ring-primary/50" />
             <span className="text-gradient">Adnan Sami</span>
           </Link>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
