@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { projects } from "@/data/projects";
 
-export const Route = createFileRoute("/portfolio")({
+export const Route = createFileRoute("/portfolio/")({
   head: () => ({
     meta: [
       { title: "Portfolio & Case Studies | Adnan Sami" },
