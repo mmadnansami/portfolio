@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
 
 const ToolsRoute = ToolsRouteImport.update({
@@ -53,6 +54,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortfolioRoute,
+} as any)
 const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -68,16 +74,17 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/tools': typeof ToolsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
-  '/portfolio': typeof PortfolioRouteWithChildren
   '/services': typeof ServicesRoute
   '/tools': typeof ToolsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/portfolio': typeof PortfolioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +96,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/tools': typeof ToolsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,16 +109,17 @@ export interface FileRouteTypes {
     | '/services'
     | '/tools'
     | '/portfolio/$slug'
+    | '/portfolio/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/blog'
     | '/contact'
-    | '/portfolio'
     | '/services'
     | '/tools'
     | '/portfolio/$slug'
+    | '/portfolio'
   id:
     | '__root__'
     | '/'
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tools'
     | '/portfolio/$slug'
+    | '/portfolio/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +194,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portfolio/': {
+      id: '/portfolio/'
+      path: '/'
+      fullPath: '/portfolio/'
+      preLoaderRoute: typeof PortfolioIndexRouteImport
+      parentRoute: typeof PortfolioRoute
+    }
     '/portfolio/$slug': {
       id: '/portfolio/$slug'
       path: '/$slug'
@@ -196,10 +213,12 @@ declare module '@tanstack/react-router' {
 
 interface PortfolioRouteChildren {
   PortfolioSlugRoute: typeof PortfolioSlugRoute
+  PortfolioIndexRoute: typeof PortfolioIndexRoute
 }
 
 const PortfolioRouteChildren: PortfolioRouteChildren = {
   PortfolioSlugRoute: PortfolioSlugRoute,
+  PortfolioIndexRoute: PortfolioIndexRoute,
 }
 
 const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
@@ -218,13 +237,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

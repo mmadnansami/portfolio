@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MessageCircle } from "lucide-react";
 import adnan from "@/assets/adnan.jpg";
 
 export function Footer() {
@@ -12,7 +12,7 @@ export function Footer() {
             <span className="text-gradient">Adnan Sami</span>
           </Link>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-            Cinematic direction, AI automation, and scalable growth — engineered for premium brands.
+            AI Creative Director · Cinematic AI films, brand worlds, automation & growth for ambitious brands.
           </p>
         </div>
         <div>
@@ -28,6 +28,11 @@ export function Footer() {
           <h4 className="font-display font-semibold mb-3">Contact</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><span>adnanrihan56@gmail.com</span></li>
+            <li>
+              <a href="https://wa.me/8801317680620" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <MessageCircle className="h-4 w-4" /><span>WhatsApp: +8801317680620</span>
+              </a>
+            </li>
             <li className="flex items-center gap-2"><Phone className="h-4 w-4" /><span>+8801317680620</span></li>
           </ul>
         </div>

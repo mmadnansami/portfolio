@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { tools, toolIcon, type Tool } from "@/data/tools";
+import { tools, type Tool } from "@/data/tools";
+import { ToolLogo } from "@/components/ToolsStrip";
 
 export const Route = createFileRoute("/tools")({
   head: () => ({
@@ -53,12 +54,7 @@ function ToolsPage() {
                   >
                     <div className="flex items-center gap-3">
                       <div className="grid h-12 w-12 place-items-center rounded-xl bg-background/40 border border-border">
-                        <img
-                          src={toolIcon(t.slug, t.color)}
-                          alt={t.name}
-                          className="h-7 w-7 object-contain"
-                          loading="lazy"
-                        />
+                        <ToolLogo name={t.name} slug={t.slug} color={t.color} className="h-7 w-7" />
                       </div>
                       <div>
                         <h3 className="font-semibold leading-tight">{t.name}</h3>
