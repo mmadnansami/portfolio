@@ -2,15 +2,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
 import adnan from "@/assets/adnan.jpg";
-import { Film, Bot, TrendingUp, ArrowRight, Sparkles, Star, Quote, Zap, Shield, Award } from "lucide-react";
+import { Wand2, Bot, TrendingUp, ArrowRight, Sparkles, Star, Quote, Zap, Shield, Award } from "lucide-react";
 import { ToolsStrip } from "@/components/ToolsStrip";
 import { projects } from "@/data/projects";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Adnan Sami — Cinematic · AI Automation · Growth" },
-      { name: "description", content: "Transform your brand with cinematic direction, AI-driven automation and scalable growth strategy." },
+      { title: "Adnan Sami — AI Creative Director · Automation · Growth" },
+      { name: "description", content: "AI Creative Director building cinematic AI-generated films, brand worlds and automation systems for ambitious brands." },
     ],
   }),
   component: HomePage,
@@ -37,7 +37,7 @@ function HomePage() {
             className="flex items-center gap-2 mb-6"
           >
             <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs">
-              <Sparkles className="h-3 w-3 text-primary animate-pulse" /> High-Value Solution Provider
+              <Sparkles className="h-3 w-3 text-primary animate-pulse" /> AI Creative Director · Available for new projects
             </span>
           </motion.div>
           <motion.h1
@@ -46,8 +46,8 @@ function HomePage() {
             transition={{ duration: 0.8, delay: 0.1, ease }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-4xl tracking-tight"
           >
-            Make your brand{" "}
-            <span className="text-gradient">cinematic, automated</span> and built to scale.
+            I'm your{" "}
+            <span className="text-gradient">AI Creative Director.</span> Cinematic brand films, generated.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -55,8 +55,8 @@ function HomePage() {
             transition={{ duration: 0.8, delay: 0.2, ease }}
             className="mt-6 max-w-2xl text-lg text-muted-foreground"
           >
-            I combine high-end creative direction, AI-driven systems and proven growth strategy to turn modern
-            businesses into category leaders.
+            I direct cinematic AI-generated films, brand worlds and campaigns for founders and CEOs — at a fraction of
+            the cost of a traditional shoot. Backed by AI automation and growth strategy for the full system.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -101,7 +101,7 @@ function HomePage() {
               </div>
               <h3 className="font-display text-2xl font-bold">Adnan Sami</h3>
               <p className="text-sm text-muted-foreground">
-                Creative Director · AI Automation Architect · Growth Strategist
+                AI Creative Director · Automation Architect · Growth Strategist
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Badge icon={Award} text="Top 1% Provider" />
@@ -287,8 +287,8 @@ function Badge({ icon: Icon, text }: { icon: typeof Award; text: string }) {
 }
 
 const pillars = [
-  { icon: Film, title: "Cinematic Creative Direction", desc: "Story-driven visuals, ad films and brand worlds that move people and markets." },
-  { icon: Bot, title: "AI-Driven Automation", desc: "Custom workflows, agents and systems that run your business while you sleep." },
+  { icon: Wand2, title: "AI Creative Direction", desc: "End-to-end AI-generated brand films, commercials & visual worlds. Hollywood quality, startup speed." },
+  { icon: Bot, title: "AI-Driven Automation", desc: "Custom agents, workflows and systems that run your business while you sleep." },
   { icon: TrendingUp, title: "Scalable Growth Strategy", desc: "Funnels, positioning and growth loops engineered for compounding revenue." },
 ];
 

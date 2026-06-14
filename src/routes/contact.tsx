@@ -2,18 +2,37 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createMeeting, createContact } from "@/lib/contact.functions";
-import { Mail, Phone, Calendar, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, Calendar, Send, CheckCircle2, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
+
+const WHATSAPP_NUMBER = "8801317680620"; // E.164, no +
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact & Book a Meeting | Adnan Sami" },
-      { name: "description", content: "Book a strategy call with Adnan Sami or send a message. Replies within 24 hours." },
+      { title: "Book a Meeting | Adnan Sami — AI Creative Director" },
+      { name: "description", content: "Book a discovery call with Adnan Sami via email or WhatsApp. Replies within 24 hours." },
     ],
   }),
   component: ContactPage,
 });
+
+function buildWhatsAppLink(fd: FormData) {
+  const lines = [
+    `*New meeting request*`,
+    ``,
+    `Name: ${fd.get("name") ?? ""}`,
+    `Email: ${fd.get("email") ?? ""}`,
+    `Phone: ${fd.get("phone") ?? "—"}`,
+    `Company: ${fd.get("company") ?? "—"}`,
+    `Service: ${fd.get("service") ?? "—"}`,
+    `Preferred time: ${fd.get("preferred_date") ?? "—"}`,
+    ``,
+    `Message:`,
+    `${fd.get("message") ?? ""}`,
+  ];
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
 
 function ContactPage() {
   const bookFn = useServerFn(createMeeting);
@@ -52,6 +71,15 @@ function ContactPage() {
     }
   }
 
+  function handleWhatsApp(e: React.MouseEvent<HTMLButtonElement>) {
+    const form = (e.currentTarget.closest("form") as HTMLFormElement) ?? null;
+    if (!form) return;
+    if (!form.reportValidity()) return;
+    const fd = new FormData(form);
+    window.open(buildWhatsAppLink(fd), "_blank", "noopener,noreferrer");
+    toast.success("Opening WhatsApp…");
+  }
+
   async function handleMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -83,10 +111,10 @@ function ContactPage() {
       <div className="max-w-3xl">
         <p className="text-sm uppercase tracking-widest text-primary mb-3">Contact</p>
         <h1 className="text-4xl md:text-6xl font-bold">
-          Let's build something <span className="text-gradient">extraordinary.</span>
+          Let's build your <span className="text-gradient">AI-directed</span> brand world.
         </h1>
         <p className="mt-5 text-lg text-muted-foreground">
-          Book a discovery call or send a direct message. I personally read and reply to every inquiry within 24 hours.
+          Book a discovery call by email or send it straight to my WhatsApp. I personally read and reply to every inquiry within 24 hours.
         </p>
       </div>
 
@@ -97,6 +125,9 @@ function ContactPage() {
             <a href="mailto:adnanrihan56@gmail.com" className="flex items-center gap-2 hover:text-primary">
               <Mail className="h-4 w-4" /> adnanrihan56@gmail.com
             </a>
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="mt-2 flex items-center gap-2 hover:text-primary">
+              <MessageCircle className="h-4 w-4" /> WhatsApp: +880 1317 680620
+            </a>
             <a href="tel:+8801317680620" className="mt-2 flex items-center gap-2 hover:text-primary">
               <Phone className="h-4 w-4" /> +880 1317 680620
             </a>
@@ -106,7 +137,7 @@ function ContactPage() {
             <p className="text-2xl font-bold">&lt; 24 hours</p>
           </div>
           <p className="text-xs text-muted-foreground">
-            Every booking and message is delivered to Adnan instantly.
+            Booking sends a message to Adnan instantly — pick email or WhatsApp.
           </p>
         </aside>
 
@@ -124,18 +155,31 @@ function ContactPage() {
               <Field label="Email" name="email" type="email" required />
               <Field label="Phone (optional)" name="phone" />
               <Field label="Company (optional)" name="company" />
-              <SelectField label="Service interested in" name="service" options={["Cinematic Direction", "AI Automation", "Growth Strategy", "All three"]} />
+              <SelectField label="Service interested in" name="service" options={["AI Creative Direction", "AI Automation", "Growth Strategy", "All three"]} />
               <Field label="Preferred date / time" name="preferred_date" type="datetime-local" />
               <div className="sm:col-span-2">
                 <TextArea label="Tell me about your project" name="message" rows={4} />
               </div>
-              <button
-                type="submit"
-                disabled={loadingB}
-                className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-hero-gradient px-7 py-3 text-sm font-semibold text-primary-foreground shadow-elegant disabled:opacity-60"
-              >
-                {loadingB ? "Sending..." : <>Request meeting <Send className="h-4 w-4" /></>}
-              </button>
+              <div className="sm:col-span-2 grid sm:grid-cols-2 gap-3">
+                <button
+                  type="submit"
+                  disabled={loadingB}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-hero-gradient px-7 py-3 text-sm font-semibold text-primary-foreground shadow-elegant disabled:opacity-60 hover:scale-[1.02] transition"
+                >
+                  {loadingB ? "Sending..." : <>Send via Email <Send className="h-4 w-4" /></>}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleWhatsApp}
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-white shadow-elegant hover:scale-[1.02] transition"
+                  style={{ background: "linear-gradient(135deg,#25D366,#128C7E)" }}
+                >
+                  Send to WhatsApp <MessageCircle className="h-4 w-4" />
+                </button>
+              </div>
+              <p className="sm:col-span-2 text-xs text-muted-foreground -mt-1">
+                Email goes to Adnan's inbox. WhatsApp opens a chat with your filled-in details — just press send.
+              </p>
             </form>
           )}
         </section>
