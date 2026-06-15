@@ -16,7 +16,9 @@ export function ToolsStrip() {
           whileHover={{ y: -4, scale: 1.04 }}
           className="group glass rounded-2xl p-4 flex flex-col items-center justify-center gap-2 aspect-square hover:shadow-glow transition-shadow"
         >
-          <ToolLogo name={t.name} slug={t.slug} color={t.color} className="h-8 w-8 md:h-10 md:w-10" />
+          <div className="h-12 w-12 md:h-14 md:w-14 rounded-xl bg-white shadow-md grid place-items-center p-2">
+            <ToolLogo name={t.name} slug={t.slug} color={t.color} className="h-full w-full" />
+          </div>
           <span className="text-[10px] md:text-xs text-foreground/80 text-center leading-tight">{t.name}</span>
         </motion.div>
       ))}
