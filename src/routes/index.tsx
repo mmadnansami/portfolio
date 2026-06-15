@@ -26,8 +26,8 @@ function HomePage() {
         <div className="absolute inset-0 -z-10">
           <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" width={1920} height={1080} />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/70 to-background" />
-          <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/30 blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-accent/30 blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/20 blur-[100px]" />
+          <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-accent/20 blur-[100px]" />
         </div>
         <div className="container mx-auto max-w-7xl px-4 pt-24 pb-32 md:pt-36 md:pb-44">
           <motion.div
