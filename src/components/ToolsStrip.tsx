@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { tools, toolIcon, toolInitial } from "@/data/tools";
+import { tools, toolInitial, type Tool } from "@/data/tools";
 
 export function ToolsStrip() {
   const shown = tools.slice(0, 12);
@@ -17,7 +17,7 @@ export function ToolsStrip() {
           className="group glass rounded-2xl p-4 flex flex-col items-center justify-center gap-2 aspect-square hover:shadow-glow transition-shadow"
         >
           <div className="h-12 w-12 md:h-14 md:w-14 rounded-xl bg-white shadow-md grid place-items-center p-2">
-            <ToolLogo name={t.name} slug={t.slug} color={t.color} className="h-full w-full" />
+            <ToolLogo name={t.name} iconUrl={t.iconUrl} className="h-full w-full" />
           </div>
           <span className="text-[10px] md:text-xs text-foreground/80 text-center leading-tight">{t.name}</span>
         </motion.div>
@@ -28,10 +28,9 @@ export function ToolsStrip() {
 
 export function ToolLogo({
   name,
-  slug,
-  color,
+  iconUrl,
   className = "h-7 w-7",
-}: { name: string; slug: string; color?: string; className?: string }) {
+}: { name: string; iconUrl: Tool["iconUrl"]; className?: string }) {
   const [err, setErr] = useState(false);
   if (err) {
     return (
@@ -44,7 +43,7 @@ export function ToolLogo({
   }
   return (
     <img
-      src={toolIcon(slug, color)}
+      src={iconUrl}
       alt={name}
       loading="lazy"
       onError={() => setErr(true)}
