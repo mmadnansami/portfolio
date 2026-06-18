@@ -128,6 +128,19 @@
     transform: translateZ(0);
     will-change: transform;
   }
+  .logo-tile {
+    overflow: hidden;
+    padding: 0.5rem;
+  }
+  .tool-logo {
+    width: 2rem;
+    height: 2rem;
+    max-width: 2rem;
+    max-height: 2rem;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+  }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
   .shadow-glow { box-shadow: var(--shadow-glow); }
   .glow-primary { box-shadow: 0 0 40px oklch(0.68 0.22 305 / 0.5); }

@@ -16,8 +16,8 @@ export function ToolsStrip() {
           whileHover={{ y: -4, scale: 1.04 }}
           className="group glass rounded-2xl p-4 flex flex-col items-center justify-center gap-2 aspect-square hover:shadow-glow transition-shadow"
         >
-          <div className="h-12 w-12 md:h-14 md:w-14 rounded-xl bg-white shadow-md grid place-items-center p-2">
-            <ToolLogo name={t.name} iconUrl={t.iconUrl} className="h-full w-full" />
+          <div className="logo-tile h-12 w-12 md:h-14 md:w-14 rounded-xl bg-white shadow-md grid place-items-center">
+            <ToolLogo name={t.name} iconUrl={t.iconUrl} />
           </div>
           <span className="text-[10px] md:text-xs text-foreground/80 text-center leading-tight">{t.name}</span>
         </motion.div>
@@ -35,7 +35,7 @@ export function ToolLogo({
   if (err) {
     return (
       <div
-        className={`${className} grid place-items-center rounded-lg bg-primary/20 text-primary text-[10px] font-bold`}
+        className={`${className} tool-logo grid place-items-center rounded-lg bg-primary/20 text-primary text-[10px] font-bold`}
       >
         {toolInitial(name)}
       </div>
@@ -47,7 +47,7 @@ export function ToolLogo({
       alt={name}
       loading="lazy"
       onError={() => setErr(true)}
-      className={`${className} object-contain transition-transform group-hover:scale-110`}
+      className={`${className} tool-logo object-contain transition-transform group-hover:scale-110`}
     />
   );
 }
