@@ -53,8 +53,8 @@ function ToolsPage() {
                     className="group glass rounded-2xl p-5 hover:shadow-glow transition-shadow"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="grid h-12 w-12 place-items-center rounded-xl bg-white shadow-md p-2">
-                        <ToolLogo name={t.name} iconUrl={t.iconUrl} className="h-full w-full" />
+                      <div className="logo-tile grid h-12 w-12 place-items-center rounded-xl bg-white shadow-md">
+                        <ToolLogo name={t.name} iconUrl={t.iconUrl} />
                       </div>
                       <div>
                         <h3 className="font-semibold leading-tight">{t.name}</h3>
